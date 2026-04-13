@@ -34,3 +34,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Contact form notifications
+
+This project includes a contact form submission API at `POST /api/contact`.
+
+### What it does
+
+- Saves each submission in JSON Lines format to `data/contact-submissions.jsonl`
+- Sends a notification email via Resend API (if env vars are set)
+- Records notification metadata (`from`, `to`, `status`) with each saved submission
+
+### Required environment variables for email notifications
+
+```bash
+RESEND_API_KEY=...
+CONTACT_NOTIFICATION_FROM=onboarding@resend.dev
+CONTACT_NOTIFICATION_TO=your-email@example.com
+```
+
+If these variables are not set, form data will still be stored locally and email sending is skipped.
+
+
+You can set these env vars either in your local `.env.local` or on your server hosting environment.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import styles from "./CtaSection.module.css";
 
 const areaOptions: Record<string, string[]> = {
@@ -97,7 +97,40 @@ function RequiredLabel({ children, optional = false }: { children: string; optio
 export default function CtaSection() {
   const prefectures = useMemo(() => Object.keys(areaOptions), []);
   const [prefecture, setPrefecture] = useState("");
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+
   const cityOptions = prefecture ? areaOptions[prefecture] : [];
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSubmitState("submitting");
+    setMessage("");
+
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("受付に失敗しました");
+      }
+
+      setSubmitState("success");
+      setMessage("送信完了しました。担当者からご連絡いたします。");
+      event.currentTarget.reset();
+      setPrefecture("");
+    } catch (error) {
+      setSubmitState("error");
+      setMessage("送信に失敗しました。時間をおいて再度お試しください。");
+      console.error(error);
+    }
+  }
 
   return (
     <section className={`section--dark ${styles.cta}`} id="contact">
@@ -113,13 +146,14 @@ export default function CtaSection() {
             </p>
           </div>
 
-          <form className={styles.formCard}>
+          <form className={styles.formCard} onSubmit={handleSubmit}>
             <div className={styles.formGrid}>
               <label className={`${styles.field} ${styles.fieldFull}`}>
                 <RequiredLabel>会社URL</RequiredLabel>
                 <input
                   className={styles.input}
                   type="url"
+                  name="companyUrl"
                   placeholder="https://example.co.jp"
                   required
                 />
@@ -130,6 +164,7 @@ export default function CtaSection() {
                 <input
                   className={styles.input}
                   type="email"
+                  name="email"
                   placeholder="info@example.co.jp"
                   required
                 />
@@ -139,6 +174,7 @@ export default function CtaSection() {
                 <RequiredLabel>都道府県</RequiredLabel>
                 <select
                   className={styles.input}
+                  name="prefecture"
                   value={prefecture}
                   onChange={(event) => setPrefecture(event.target.value)}
                   required
@@ -156,7 +192,7 @@ export default function CtaSection() {
 
               <label className={styles.field}>
                 <RequiredLabel>市区町村</RequiredLabel>
-                <select className={styles.input} defaultValue="" disabled={!prefecture} required>
+                <select className={styles.input} name="city" defaultValue="" disabled={!prefecture} required>
                   <option value="" disabled>
                     {prefecture ? "選択してください" : "先に都道府県を選択"}
                   </option>
@@ -170,7 +206,7 @@ export default function CtaSection() {
 
               <label className={styles.field}>
                 <RequiredLabel>業種</RequiredLabel>
-                <select className={styles.input} defaultValue="" required>
+                <select className={styles.input} name="industry" defaultValue="" required>
                   <option value="" disabled>
                     選択してください
                   </option>
@@ -184,7 +220,7 @@ export default function CtaSection() {
 
               <label className={styles.field}>
                 <RequiredLabel>使い道</RequiredLabel>
-                <select className={styles.input} defaultValue="" required>
+                <select className={styles.input} name="useCase" defaultValue="" required>
                   <option value="" disabled>
                     選択してください
                   </option>
@@ -200,14 +236,27 @@ export default function CtaSection() {
                 <RequiredLabel optional>補足事項</RequiredLabel>
                 <textarea
                   className={`${styles.input} ${styles.textarea}`}
+                  name="notes"
                   placeholder="任意で補足があれば入力してください"
                 />
               </label>
             </div>
 
-            <button type="submit" className={`btn btn--primary ${styles.submitBtn}`}>
-              無料で受付する
+            <button
+              type="submit"
+              className={`btn btn--primary ${styles.submitBtn}`}
+              disabled={submitState === "submitting"}
+            >
+              {submitState === "submitting" ? "送信中..." : "無料で受付する"}
             </button>
+            {message && (
+              <p
+                className={submitState === "error" ? styles.errorMessage : styles.successMessage}
+                aria-live="polite"
+              >
+                {message}
+              </p>
+            )}
           </form>
         </div>
       </div>
