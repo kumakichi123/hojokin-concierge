@@ -1,0 +1,138 @@
+.problem {
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+}
+
+/* Problem block */
+.problemBlock {
+  max-width: 800px;
+  margin: 0 auto 2.75rem;
+  text-align: center;
+}
+
+.problemIntro {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 2.4rem;
+  line-height: 1.9;
+}
+
+.problemCards {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.problemCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.5rem;
+  text-align: left;
+  max-width: 300px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.problemIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.problemText {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-body);
+  line-height: 1.5;
+}
+
+/* Arrow */
+.arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0 2.5rem;
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+}
+
+.arrowText {
+  max-width: 760px;
+  font-size: var(--font-size-lg);
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* Solution block */
+.solutionTitle {
+  text-align: center;
+  margin: 1rem auto 3.25rem;
+  max-width: 600px;
+}
+
+.solutionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.solutionCard {
+  position: relative;
+  padding: 2.3rem;
+}
+
+.solutionNum {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--color-accent-light);
+  line-height: 1;
+  margin-bottom: 1rem;
+  font-feature-settings: "tnum";
+  -webkit-text-stroke: 2px var(--color-accent);
+  color: transparent;
+}
+
+.solutionCardTitle {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.solutionDesc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .solutionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .arrowText {
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+  }
+
+  .problemCards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .problemCard {
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+  }
+}

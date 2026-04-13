@@ -1,0 +1,74 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f4f8f8 0%, #ffffff 100%);
+  padding: calc(var(--header-height) + 3rem) 0 5rem;
+}
+
+.shell {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 3vw, 1.5rem);
+}
+
+.card {
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(42, 171, 159, 0.1);
+  box-shadow: 0 18px 48px rgba(15, 39, 39, 0.08);
+}
+
+.kicker {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin-top: 0.8rem;
+  color: var(--color-dark);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.updated {
+  margin-top: 0.75rem;
+  color: rgba(7, 24, 29, 0.56);
+  font-size: 0.9rem;
+}
+
+.section {
+  margin-top: 2.2rem;
+}
+
+.section h2 {
+  color: var(--color-dark);
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.section p,
+.section li {
+  color: rgba(7, 24, 29, 0.78);
+  font-size: 0.98rem;
+  line-height: 1.9;
+}
+
+.section p + p,
+.section ul,
+.section ol {
+  margin-top: 0.9rem;
+}
+
+.section ul,
+.section ol {
+  padding-left: 1.2rem;
+}
+
+.section li + li {
+  margin-top: 0.4rem;
+}

@@ -1,0 +1,140 @@
+.block {
+  /* empty */
+}
+
+.blockHeader {
+  margin-bottom: 3rem;
+}
+
+/* Steps */
+.steps {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.stepWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.75rem;
+  text-align: center;
+  max-width: 260px;
+  transition: all var(--transition-base);
+  flex: 1;
+  min-width: 200px;
+}
+
+.step:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.stepNum {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+}
+
+.stepTitle {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.stepDesc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  line-height: 1.65;
+}
+
+.stepArrow {
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+/* Support grid */
+.supportGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.supportCard {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.supportIcon {
+  font-size: 2rem;
+}
+
+.supportTitle {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+.supportDesc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-body);
+  line-height: 1.75;
+  flex: 1;
+}
+
+.supportLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-top: auto;
+  transition: gap var(--transition-fast);
+}
+
+.supportLink:hover {
+  gap: 0.625rem;
+}
+
+@media (max-width: 900px) {
+  .supportGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stepArrow {
+    transform: rotate(90deg);
+  }
+
+  .step {
+    max-width: 100%;
+    width: 100%;
+  }
+}

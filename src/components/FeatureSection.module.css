@@ -1,0 +1,152 @@
+.header {
+  text-align: center;
+  margin-bottom: 2.6rem;
+}
+
+.heading {
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--color-dark);
+}
+
+.tabs {
+  display: flex;
+  gap: 0.9rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: rgba(0, 27, 27, 0.68);
+  background: rgba(230, 247, 246, 0.75);
+  border: 1px solid transparent;
+  transition: all var(--transition-base);
+}
+
+.tab:hover {
+  color: var(--color-accent);
+  border-color: rgba(42, 171, 159, 0.2);
+}
+
+.tabActive {
+  color: #fff;
+  background: linear-gradient(135deg, #2aab9f, #4d8fd6);
+  box-shadow: 0 14px 34px rgba(42, 171, 159, 0.22);
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: stretch;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(241, 249, 248, 0.96));
+  border: 1px solid rgba(42, 171, 159, 0.1);
+  border-radius: 34px;
+  padding: 2.35rem;
+  box-shadow: 0 24px 70px rgba(15, 39, 39, 0.08);
+}
+
+.panelCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.panelTitle {
+  font-size: clamp(1.5rem, 2.2vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--color-dark);
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.panelDesc {
+  font-size: 1.02rem;
+  line-height: 1.9;
+  color: var(--color-text-body);
+  margin-bottom: 1.9rem;
+  max-width: 42rem;
+}
+
+.pointRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pointCard {
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: #fff;
+  border: 1px solid rgba(42, 171, 159, 0.1);
+  box-shadow: 0 10px 24px rgba(15, 39, 39, 0.05);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-dark);
+}
+
+.panelVisual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visualSurface {
+  position: relative;
+  width: 100%;
+  min-height: 360px;
+  border-radius: 30px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(230, 247, 246, 0.9), rgba(215, 232, 239, 0.92));
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.visualImageWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.visualImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.visualGlow {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.08) 100%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04) 60%, rgba(255, 255, 255, 0.02) 100%);
+}
+
+.visualSurfaceDeadline {
+  background: linear-gradient(160deg, rgba(238, 249, 247, 0.94), rgba(219, 232, 245, 0.98));
+}
+
+.visualSurfaceSearch {
+  background: linear-gradient(160deg, rgba(242, 250, 247, 0.94), rgba(230, 242, 239, 0.98));
+}
+
+.visualSurfaceCompare {
+  background: linear-gradient(160deg, rgba(235, 248, 248, 0.94), rgba(220, 231, 248, 0.98));
+}
+
+@media (max-width: 900px) {
+  .panel {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  .visualSurface {
+    min-height: 300px;
+  }
+}

@@ -1,0 +1,188 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-height);
+  background: #f3f7f8;
+}
+
+.inner {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+.stage {
+  position: relative;
+  min-height: calc(100vh - var(--header-height));
+  overflow: hidden;
+  background: #eef4f6;
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: 68% 16%;
+  animation: heroDrift 18s ease-in-out infinite alternate;
+  transform-origin: 72% 24%;
+}
+
+.leftShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(244, 248, 249, 0.98) 0%, rgba(244, 248, 249, 0.94) 24%, rgba(244, 248, 249, 0.76) 40%, rgba(244, 248, 249, 0.18) 62%, rgba(244, 248, 249, 0) 78%),
+    radial-gradient(circle at 18% 32%, rgba(255, 255, 255, 0.82), transparent 30%);
+}
+
+.bottomShade {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 18%;
+  background: linear-gradient(180deg, rgba(243, 247, 248, 0) 0%, rgba(243, 247, 248, 0.85) 100%);
+}
+
+.copy {
+  position: absolute;
+  left: clamp(4%, 5.8vw, 7.5%);
+  top: 50%;
+  z-index: 1;
+  transform: translateY(-50%);
+  max-width: 46rem;
+}
+
+.title {
+  color: #07181d;
+  font-size: clamp(2.8rem, 4.9vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  text-wrap: balance;
+}
+
+.lead {
+  color: rgba(7, 24, 29, 0.78);
+  font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+  line-height: 1.9;
+  max-width: 36rem;
+  margin-bottom: 1.9rem;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.primaryCta,
+.secondaryCta {
+  justify-content: center;
+  min-width: 25rem;
+  padding: 1.05rem 1.8rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.primaryCta {
+  background: #1fb5ab;
+  color: #ffffff;
+  box-shadow: 0 16px 34px rgba(31, 181, 171, 0.24);
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  background: #18a198;
+}
+
+.secondaryCta {
+  background: rgba(255, 255, 255, 0.92);
+  color: #10244f;
+  box-shadow: 0 16px 34px rgba(7, 20, 60, 0.1);
+}
+
+.secondaryCta:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+@keyframes heroDrift {
+  from {
+    transform: scale(0.94) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(0.97) translate3d(-0.8%, 0.4%, 0);
+  }
+}
+
+@media (max-width: 1100px) {
+  .copy {
+    max-width: 38rem;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-width: 21rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .copy {
+    left: 50%;
+    top: 14%;
+    transform: translateX(-50%);
+    width: calc(100% - 3rem);
+    max-width: 680px;
+    text-align: center;
+  }
+
+  .lead {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ctaGroup {
+    align-items: center;
+  }
+
+  .leftShade {
+    background:
+      linear-gradient(180deg, rgba(244, 248, 249, 0.94) 0%, rgba(244, 248, 249, 0.76) 28%, rgba(244, 248, 249, 0.16) 58%, rgba(244, 248, 249, 0) 82%);
+  }
+
+  .heroImage {
+    object-position: 74% 18%;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: clamp(2.3rem, 9.5vw, 4rem);
+  }
+
+  .lead {
+    font-size: 0.94rem;
+  }
+
+  .ctaGroup {
+    width: 100%;
+  }
+
+  .primaryCta,
+  .secondaryCta {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .heroImage {
+    object-position: 78% 18%;
+  }
+}
