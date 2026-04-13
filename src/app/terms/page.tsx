@@ -12,12 +12,12 @@ export default function TermsPage() {
         <article className={styles.card}>
           <p className={styles.kicker}>Terms</p>
           <h1 className={styles.title}>利用規約</h1>
-          <p className={styles.updated}>最終更新日: 2026年4月13日</p>
+          <p className={styles.updated}>最終更新日: 2026年4月14日</p>
 
           <section className={styles.section}>
             <h2>第1条 適用</h2>
             <p>
-              本規約は、朝部耀平（以下「運営者」といいます。）が提供する「補助金コンシェル」（以下「本サービス」といいます。）の利用条件を定めるものです。
+              本規約は、「補助金コンシェル」（以下「本サービス」といいます。）の利用条件を定めるものです。利用者は、本サービスを利用することにより、本規約に同意したものとみなされます。
             </p>
           </section>
 
@@ -34,7 +34,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>第3条 利用申込み</h2>
             <p>
-              利用者は、運営者所定の方法により必要事項を入力し、本規約に同意のうえ、本サービスの利用を申し込むものとします。
+              利用者は、本サービス所定の方法により必要事項を入力し、本規約に同意のうえ、本サービスの利用を申し込むものとします。
             </p>
           </section>
 
@@ -51,7 +51,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>第5条 免責</h2>
             <p>
-              運営者は、本サービスに掲載または案内される制度情報の完全性、正確性、最新性、有用性を保証しません。利用者は、自らの責任において最終確認および申請判断を行うものとします。
+              本サービスに掲載または案内される制度情報の完全性、正確性、最新性、有用性について、運営者は保証しません。利用者は、自らの責任において最終確認および申請判断を行うものとします。
             </p>
           </section>
 
@@ -65,7 +65,7 @@ export default function TermsPage() {
           <section className={styles.section}>
             <h2>第7条 準拠法・管轄</h2>
             <p>
-              本規約の準拠法は日本法とし、本サービスに関して紛争が生じた場合は、運営者の所在地を管轄する裁判所を第一審の専属的合意管轄裁判所とします。
+              本規約の準拠法は日本法とし、本サービスに関して紛争が生じた場合は、日本法令に従って解決するものとします。
             </p>
           </section>
         </article>

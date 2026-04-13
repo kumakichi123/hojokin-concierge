@@ -18,6 +18,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## Contact Form Notification
+
+The contact form stores each submission as one JSON line in `data/contact-submissions.jsonl` by default, then sends a notification email through Gmail SMTP.
+
+Set these environment variables before using the form:
+
+```bash
+GMAIL_USER=your-account@gmail.com
+GMAIL_APP_PASSWORD=abcdefghijklmnop
+CONTACT_NOTIFICATION_TO_EMAIL=notify@example.com
+CONTACT_STORAGE_DIR=./data
+```
+
+If you deploy on Vercel, the project directory is not durable at runtime. Use a writable temporary path such as `/tmp/hojokin-concierge` for `CONTACT_STORAGE_DIR`, or replace the file storage layer with a database/blob store.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

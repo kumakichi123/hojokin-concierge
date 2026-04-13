@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./Footer.module.css";
 
 const footerNav = [
@@ -31,21 +32,12 @@ export default function Footer() {
       <div className="container">
         <div className={styles.main}>
           <div className={styles.brand}>
-            <a href="/" className={styles.logoLink}>
+            <Link href="/" className={styles.logoLink}>
               <div className={styles.logoMark}>
-                <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
-                  <rect width="28" height="28" rx="6" fill="#2aab9f" />
-                  <path
-                    d="M7 14C7 10.134 10.134 7 14 7C17.866 7 21 10.134 21 14"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="14" cy="18" r="3" fill="white" />
-                </svg>
+                <img src="/logo-mark.svg" alt="" width="36" height="36" />
               </div>
               <span className={styles.logoText}>補助金コンシェル</span>
-            </a>
+            </Link>
             <p className={styles.tagline}>
               会社サイトURLから始める
               <br />

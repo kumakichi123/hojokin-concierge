@@ -54,7 +54,7 @@ export default function PrivacyPage() {
 
           <section className={styles.section}>
             <h2>6. お問い合わせ窓口</h2>
-            <p>運営者: 朝部耀平</p>
+            <p>本ポリシーに関するお問い合わせは、下記メールアドレスまでご連絡ください。</p>
             <p>メールアドレス: info@mirai-axis.com</p>
           </section>
         </article>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 
@@ -21,21 +22,12 @@ export default function Header() {
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
       <div className={`container ${styles.inner}`}>
-        <a href="/" className={styles.logo} aria-label="補助金コンシェル トップへ">
+        <Link href="/" className={styles.logo} aria-label="補助金コンシェル トップへ">
           <div className={styles.logoMark}>
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect width="28" height="28" rx="6" fill="#2aab9f" />
-              <path
-                d="M7 14C7 10.134 10.134 7 14 7C17.866 7 21 10.134 21 14"
-                stroke="white"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-              <circle cx="14" cy="18" r="3" fill="white" />
-            </svg>
+            <img src="/logo-mark.svg" alt="" width="32" height="32" />
           </div>
           <span className={styles.logoText}>補助金コンシェル</span>
-        </a>
+        </Link>
 
         <nav className={styles.nav} aria-label="グローバルナビゲーション">
           <ul className={styles.navList}>
