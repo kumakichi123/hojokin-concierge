@@ -54,7 +54,7 @@
   justify-content: center;
   gap: 0.9rem;
   width: min(100%, 760px);
-  margin: 0 auto 3.25rem;
+  margin: 0 auto 4.5rem;
 }
 
 .flowDividerLine {
@@ -79,6 +79,10 @@
 }
 
 /* Solution block */
+.solutionBlock {
+  margin-top: 3rem;
+}
+
 .solutionTitle {
   text-align: center;
   margin: 1rem auto 3rem;
@@ -200,11 +204,15 @@
 @media (max-width: 600px) {
   .flowDivider {
     gap: 0.7rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3.25rem;
   }
 
   .flowDividerLine {
     max-width: none;
+  }
+
+  .solutionBlock {
+    margin-top: 2.25rem;
   }
 
   .arrowText {
