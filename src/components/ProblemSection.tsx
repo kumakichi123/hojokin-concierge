@@ -71,6 +71,12 @@ export default function ProblemSection() {
           </span>
         </div>
 
+        <div className={styles.flowDivider} aria-hidden="true">
+          <span className={styles.flowDividerLine} />
+          <span className={styles.flowDividerDot} />
+          <span className={styles.flowDividerLine} />
+        </div>
+
         <div className={styles.solutionBlock}>
           <h2 className={`section-title ${styles.solutionTitle}`}>ご利用の流れ</h2>
           <div className={styles.solutionGrid}>

@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./Header.module.css";
 
 const navItems = [
@@ -10,17 +10,10 @@ const navItems = [
 ];
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 16);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}>
+    <header className={styles.header}>
       <div className={`container ${styles.inner}`}>
         <Link href="/" className={styles.logo} aria-label="補助金コンシェル トップへ">
           <div className={styles.logoMark}>

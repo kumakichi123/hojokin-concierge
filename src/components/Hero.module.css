@@ -1,122 +1,79 @@
-.hero {
-  min-height: 100vh;
+﻿.hero {
+  position: relative;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding-top: var(--header-height);
-  background: var(--color-primary);
-}
-
-.inner {
-  width: 100%;
-  max-width: none;
-  padding: 0;
-}
-
-.stage {
-  position: relative;
-  min-height: calc(100vh - var(--header-height));
-  overflow: hidden;
-  background: linear-gradient(135deg, #121316 0%, #191b20 42%, #24262d 100%);
-}
-
-.media {
-  position: absolute;
-  inset: 0;
-}
-
-.mobileIntro {
-  display: none;
 }
 
 .heroImage {
   object-fit: cover;
   object-position: center 18%;
-  animation: heroDrift 1.4s ease-out both;
-  transform-origin: 72% 24%;
-  opacity: 0.4;
+  z-index: 0;
 }
 
-/* Dark overlay for text legibility */
+/*
+  左: ネイビー solid → 右: 透明
+  女性の顔がある右側はオーバーレイなし
+*/
 .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    90deg,
-    rgba(8, 8, 10, 0.88) 0%,
-    rgba(10, 10, 12, 0.8) 30%,
-    rgba(12, 12, 14, 0.48) 58%,
-    rgba(12, 12, 14, 0.12) 80%,
-    rgba(12, 12, 14, 0.02) 100%
+    to right,
+    #0f2447 0%,
+    #0f2447 33%,
+    rgba(15, 36, 71, 0.58) 52%,
+    rgba(15, 36, 71, 0.16) 68%,
+    rgba(15, 36, 71, 0.0) 79%
   );
+  z-index: 1;
 }
 
-.leftShade {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 14% 44%, rgba(0, 0, 0, 0.18), transparent 52%),
-    radial-gradient(ellipse at 8% 80%, rgba(70, 50, 26, 0.1), transparent 40%);
-  pointer-events: none;
-}
-
-.bottomShade {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 16%;
-  background: linear-gradient(180deg, rgba(8, 8, 10, 0) 0%, rgba(8, 8, 10, 0.7) 100%);
+.inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
 }
 
 .copy {
-  --copy-shift-x: 0;
-  --copy-shift-y: -50%;
-  position: absolute;
-  left: clamp(4%, 5.8vw, 7.5%);
-  top: 50%;
-  z-index: 1;
-  transform: translate(var(--copy-shift-x), var(--copy-shift-y));
-  max-width: 48rem;
-  animation: heroCopyIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  max-width: 36rem;
+  padding: 4rem 0;
 }
 
 .title {
-  color: #ffffff;
   font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 4.9vw, 5.4rem);
-  line-height: 1.06;
+  color: #ffffff;
+  font-size: clamp(2.6rem, 4.5vw, 5rem);
+  line-height: 1.08;
   letter-spacing: -0.03em;
   font-weight: 900;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.5rem;
   text-wrap: balance;
-  animation: heroTextIn 0.85s ease both;
-  animation-delay: 0.12s;
 }
 
 .lead {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: clamp(0.98rem, 1.25vw, 1.1rem);
-  line-height: 2;
-  max-width: 36rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(0.95rem, 1.2vw, 1.06rem);
+  line-height: 1.9;
   margin-bottom: 2rem;
-  animation: heroTextIn 0.85s ease both;
-  animation-delay: 0.22s;
+  max-width: 30em;
+  word-break: keep-all;
 }
 
 .ctaGroup {
   display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
-  animation: heroTextIn 0.85s ease both;
-  animation-delay: 0.32s;
-  margin-bottom: 2rem;
   flex-wrap: wrap;
+  gap: 0.875rem;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .primaryCta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem 1.75rem;
+  padding: 0.95rem 1.75rem;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 800;
@@ -138,228 +95,88 @@
 .secondaryCta {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 1rem 1.5rem;
+  padding: 0.95rem 1.5rem;
   border-radius: 8px;
-  font-size: 0.97rem;
+  font-size: 0.95rem;
   font-weight: 600;
   font-family: var(--font-base);
   background: transparent;
-  color: rgba(255, 255, 255, 0.82);
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.78);
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
   transition: all 0.2s;
   text-decoration: none;
   white-space: nowrap;
 }
 
 .secondaryCta:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
   color: #ffffff;
 }
 
-/* Trust badges */
 .badges {
   display: flex;
-  gap: 0.75rem;
   flex-wrap: wrap;
-  animation: heroTextIn 0.85s ease both;
-  animation-delay: 0.42s;
+  gap: 0.625rem;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.4rem 0.875rem;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(22, 22, 24, 0.42);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.82rem;
-  font-weight: 600;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .badgeIcon {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  color: #93c5fd; /* blue-300 */
-}
-
-.badgeText {
-  line-height: 1;
-}
-
-/* Animations */
-@keyframes heroDrift {
-  from { transform: scale(0.96) translate3d(0, 0, 0); }
-  to   { transform: scale(1.0) translate3d(-0.4%, 0.2%, 0); }
-}
-
-@keyframes heroCopyIn {
-  from {
-    opacity: 0;
-    transform: translate(var(--copy-shift-x), calc(var(--copy-shift-y) + 30px));
-  }
-  to {
-    opacity: 1;
-    transform: translate(var(--copy-shift-x), var(--copy-shift-y));
-  }
-}
-
-@keyframes heroTextIn {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 22px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
+  justify-content: center;
+  color: #8fc2ff;
+  flex-shrink: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroImage,
-  .copy,
-  .title,
-  .lead,
-  .ctaGroup,
-  .badges {
-    animation: none;
-  }
+  .heroImage { animation: none; }
 }
 
-@media (max-width: 1100px) {
-  .copy {
-    max-width: 40rem;
-  }
-}
-
-@media (max-width: 900px) {
-  .hero {
-    min-height: auto;
-    align-items: stretch;
-  }
-
-  .stage {
-    min-height: auto;
-    padding: 1.25rem 0 3rem;
-    overflow: visible;
-    background: linear-gradient(180deg, #121316 0%, #1c1e24 100%);
-  }
-
-  .media {
-    position: relative;
-    inset: auto;
-    width: min(100% - 2rem, 34rem);
-    min-height: 24rem;
-    margin: 0 auto;
-    border-radius: 2.5rem;
-    overflow: hidden;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
-  }
-
-  .heroImage {
-    opacity: 0.68;
-  }
-
+/* スマホ */
+@media (max-width: 768px) {
   .overlay {
     background: linear-gradient(
-      180deg,
-      rgba(8, 8, 10, 0.12) 0%,
-      rgba(8, 8, 10, 0.42) 100%
+      to right,
+      rgba(15, 36, 71, 0.9) 0%,
+      rgba(15, 36, 71, 0.68) 52%,
+      rgba(15, 36, 71, 0.32) 100%
     );
   }
 
-  .mobileIntro {
-    display: block;
-    width: calc(100% - 3rem);
-    max-width: 680px;
-    margin: 0 auto 1.4rem;
-  }
-
-  .mobileTitle {
-    color: #ffffff;
-    font-family: var(--font-serif);
-    font-size: clamp(2.2rem, 8vw, 3.8rem);
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    font-weight: 900;
-    text-wrap: balance;
-  }
-
   .copy {
-    --copy-shift-x: -50%;
-    --copy-shift-y: 0;
-    position: relative;
-    left: 50%;
-    top: auto;
-    width: calc(100% - 3rem);
-    max-width: 680px;
-    margin: 2rem auto 0;
-    text-align: left;
+    padding: 3rem 0;
+    max-width: 100%;
   }
 
-  .lead {
-    margin-left: 0;
-    margin-right: 0;
-    color: rgba(255, 255, 255, 0.75);
+  .title {
+    font-size: clamp(2.2rem, 8vw, 3rem);
   }
 
   .ctaGroup {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
   }
 
   .primaryCta,
   .secondaryCta {
+    width: 100%;
     justify-content: center;
-    text-align: center;
-  }
-
-  .title {
-    display: none;
-  }
-
-  .leftShade {
-    display: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .stage {
-    padding: 0.9rem 0 2.5rem;
-  }
-
-  .media {
-    width: calc(100% - 1.5rem);
-    min-height: 20rem;
-    border-radius: 2rem;
-  }
-
-  .mobileIntro {
-    width: calc(100% - 1.5rem);
-    margin-bottom: 1.1rem;
-  }
-
-  .lead {
-    font-size: 0.94rem;
-    line-height: 1.85;
-  }
-
-  .badges {
-    gap: 0.5rem;
-  }
-
-  .badge {
-    font-size: 0.78rem;
-    padding: 0.35rem 0.75rem;
-  }
-
-  .copy {
-    width: calc(100% - 1.5rem);
-    margin-top: 1.5rem;
   }
 }
