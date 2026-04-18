@@ -39,15 +39,17 @@ const badges = [
 export default function Hero() {
   return (
     <section className={styles.hero} id="hero">
-      <Image
-        src="/hero-woman-side-profile.png"
-        alt="補助金・助成金の確認イメージ"
-        fill
-        priority
-        className={styles.heroImage}
-        sizes="100vw"
-      />
-      <div className={styles.overlay} aria-hidden="true" />
+      <div className={styles.mediaLayer} aria-hidden="true">
+        <Image
+          src="/hero-woman-side-profile.png"
+          alt="補助金・助成金の確認イメージ"
+          fill
+          priority
+          className={styles.heroImage}
+          sizes="100vw"
+        />
+        <div className={styles.overlay} />
+      </div>
 
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>

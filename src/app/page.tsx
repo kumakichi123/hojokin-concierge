@@ -1,7 +1,8 @@
-import Header from "@/components/Header";
+﻿import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import ProblemSection from "@/components/ProblemSection";
 import FeatureSection from "@/components/FeatureSection";
+import DemoPreviewSection from "@/components/DemoPreviewSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import CtaSection from "@/components/CtaSection";
 import Footer from "@/components/Footer";
@@ -11,13 +12,16 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main style={{ paddingTop: "var(--header-height)" }}>
+      <main>
         <Hero />
-        <Reveal delayMs={50} variant="left">
+        <Reveal delayMs={40} variant="up">
           <ProblemSection />
         </Reveal>
         <Reveal delayMs={60} variant="right">
           <FeatureSection />
+        </Reveal>
+        <Reveal delayMs={60} variant="up">
+          <DemoPreviewSection />
         </Reveal>
         <Reveal delayMs={70} variant="up">
           <CaseStudiesSection />

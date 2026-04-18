@@ -177,12 +177,10 @@ export default function CtaSection() {
           <div className={styles.heading}>
             <span className={styles.headingEyebrow}>無料・24時間以内に回答</span>
             <h2 className={styles.headingTitle}>
-              まず、会社情報を教えてください。
-              <br />
-              <span className={styles.headingAccent}>24時間以内に候補をお届けします。</span>
+              御社のURLはありますか？
             </h2>
             <p className={styles.headingDesc}>
-              会社サイトURLと地域・業種・使い道を入力するだけ。担当者が確認した上で、あなたの会社に合った補助金・助成金の候補をメールでご案内します。
+              それだけあれば大丈夫です。地域と業種を選ぶだけで、担当者が合いそうな補助金・助成金を24時間以内にお届けします。
             </p>
           </div>
 
