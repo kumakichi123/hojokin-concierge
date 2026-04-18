@@ -1,4 +1,4 @@
-.reveal {
+.revealInner {
   opacity: 0;
   transition:
     opacity 0.7s ease,
@@ -28,7 +28,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .revealInner {
     opacity: 1;
     transform: none;
     transition: none;

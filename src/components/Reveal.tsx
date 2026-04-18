@@ -53,18 +53,19 @@ export default function Reveal({
     scale: styles.variantScale,
   };
 
-  const classes = [
-    styles.reveal,
+  const innerClasses = [
+    styles.revealInner,
     variantClassMap[variant],
     isVisible ? styles.visible : "",
-    className ?? "",
   ]
     .filter(Boolean)
     .join(" ");
 
   return (
-    <div ref={ref} className={classes} style={{ transitionDelay: `${delayMs}ms` }}>
-      {children}
+    <div ref={ref} className={className}>
+      <div className={innerClasses} style={{ transitionDelay: `${delayMs}ms` }}>
+        {children}
+      </div>
     </div>
   );
 }
