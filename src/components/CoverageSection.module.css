@@ -2,63 +2,109 @@
   position: relative;
   margin-top: -2.5rem;
   padding: 0 0 calc(var(--space-xl) + 0.5rem);
-  background: linear-gradient(180deg, #f3f7f8 0%, #ffffff 100%);
+  background: linear-gradient(180deg, #0f1e32 0%, #f8fafc 32%);
 }
 
 .inner {
   display: flex;
   justify-content: center;
-  padding: 1.6rem;
-  border-radius: 34px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(42, 171, 159, 0.12);
-  box-shadow: 0 22px 54px rgba(15, 39, 39, 0.08);
-  backdrop-filter: blur(10px);
+  padding: 1.8rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 24px 64px rgba(15, 23, 42, 0.12);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.2rem;
+  gap: 0;
   width: min(100%, 1080px);
+  position: relative;
 }
 
 .card {
-  padding: 1.45rem 1.25rem;
-  border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(244, 251, 250, 0.96) 0%, rgba(232, 244, 247, 0.88) 100%);
-  border: 1px solid rgba(42, 171, 159, 0.1);
+  position: relative;
+  padding: 1.75rem 2rem;
+}
+
+/* Vertical divider between cards */
+.divider {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: var(--color-border);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: 0.6rem;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  flex-shrink: 0;
 }
 
 .value {
-  color: var(--color-dark);
-  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+  color: var(--color-primary);
+  font-size: clamp(2rem, 3.2vw, 3rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.04em;
+  font-feature-settings: "tnum";
 }
 
 .label {
-  margin-top: 0.55rem;
+  margin-top: 0.1rem;
   color: var(--color-dark);
-  font-size: 0.95rem;
+  font-size: 0.97rem;
   font-weight: 800;
+  letter-spacing: 0.01em;
 }
 
 .note {
-  margin-top: 0.55rem;
-  color: rgba(7, 24, 29, 0.68);
-  font-size: 0.86rem;
-  line-height: 1.6;
+  margin-top: 0.45rem;
+  color: var(--color-text-body);
+  font-size: 0.84rem;
+  line-height: 1.65;
 }
 
 @media (max-width: 980px) {
   .coverage {
     margin-top: -1.25rem;
+    background: linear-gradient(180deg, #0f1e32 0%, #f8fafc 20%);
   }
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .divider {
+    right: 0;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+  }
+
+  .card {
+    padding: 1.4rem 1.25rem;
+  }
+
+  .cardHead {
+    gap: 0.75rem;
   }
 }

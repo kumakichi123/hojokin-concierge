@@ -4,9 +4,10 @@
 }
 
 .heading {
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3.3rem);
   line-height: 1.1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   color: var(--color-dark);
 }
 
@@ -36,8 +37,8 @@
 
 .tabActive {
   color: #fff;
-  background: linear-gradient(135deg, #2aab9f, #4d8fd6);
-  box-shadow: 0 14px 34px rgba(42, 171, 159, 0.22);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.25);
 }
 
 .panel {
@@ -81,14 +82,23 @@
 }
 
 .pointCard {
-  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.1rem;
   border-radius: 20px;
   background: #fff;
-  border: 1px solid rgba(42, 171, 159, 0.1);
-  box-shadow: 0 10px 24px rgba(15, 39, 39, 0.05);
+  border: 1px solid rgba(220, 38, 38, 0.12);
+  box-shadow: 0 6px 18px rgba(15, 39, 39, 0.05);
   font-size: 0.92rem;
   font-weight: 700;
   color: var(--color-dark);
+}
+
+.pointIcon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
 .panelVisual {

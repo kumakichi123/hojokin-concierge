@@ -14,7 +14,8 @@
 
 .header.scrolled {
   border-bottom-color: var(--color-border);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  background: rgba(248, 250, 252, 0.96);
 }
 
 .inner {
@@ -129,6 +130,35 @@
   align-items: center;
   gap: 0.75rem;
   flex-shrink: 0;
+}
+
+/* CTA shimmer */
+.actions :global(.btn--primary) {
+  position: relative;
+  overflow: hidden;
+}
+
+.actions :global(.btn--primary)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
+  animation: shimmerBtn 3.2s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes shimmerBtn {
+  0% { left: -100%; }
+  50% { left: 130%; }
+  100% { left: 130%; }
 }
 
 /* Hamburger */

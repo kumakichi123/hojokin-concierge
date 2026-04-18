@@ -87,11 +87,17 @@ const useCases = [
   "わからないので提案してほしい",
 ];
 
+const STEPS = [
+  { label: "会社情報", num: 1 },
+  { label: "業種・使い道", num: 2 },
+  { label: "確認・送信", num: 3 },
+];
+
 function RequiredLabel({ children, optional = false }: { children: string; optional?: boolean }) {
   return (
     <span className={styles.labelRow}>
       <span className={styles.label}>{children}</span>
-      {!optional && <span className={styles.requiredMark}>※</span>}
+      {!optional && <span className={styles.requiredMark}>必須</span>}
     </span>
   );
 }
@@ -106,10 +112,22 @@ function SubmitButton() {
   return (
     <button
       type="submit"
-      className={`btn btn--primary ${styles.submitBtn}`}
+      className={styles.submitBtn}
       disabled={pending}
     >
-      {pending ? "送信中..." : "無料で受付する"}
+      {pending ? (
+        <span className={styles.submitBtnInner}>
+          <span className={styles.spinner} aria-hidden="true" />
+          送信中...
+        </span>
+      ) : (
+        <span className={styles.submitBtnInner}>
+          候補の確認を無料で申し込む
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4 10H16M11 5L16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </span>
+      )}
     </button>
   );
 }
@@ -119,147 +137,329 @@ export default function CtaSection() {
   const [prefecture, setPrefecture] = useState("");
   const [formKey, setFormKey] = useState(0);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
   const [state, formAction] = useActionState(submitContactForm, initialState);
+
+  // Step 1 values
+  const [companyUrl, setCompanyUrl] = useState("");
+  const [email, setEmail] = useState("");
+  const [city, setCity] = useState("");
+
+  // Step 2 values
+  const [industry, setIndustry] = useState("");
+  const [useCase, setUseCase] = useState("");
 
   useEffect(() => {
     if (state.status === "success") {
       setPrefecture("");
+      setCompanyUrl("");
+      setEmail("");
+      setCity("");
+      setIndustry("");
+      setUseCase("");
+      setCurrentStep(1);
       setFormKey((current) => current + 1);
       setShowSuccessModal(true);
     }
   }, [state.status]);
 
+  const canProceedStep1 = companyUrl.trim() !== "" && email.trim() !== "" && prefecture !== "" && city.trim() !== "";
+  const canProceedStep2 = industry !== "" && useCase !== "";
+
   return (
-    <section className={`section--dark ${styles.cta}`} id="contact">
+    <section className={styles.cta} id="contact">
       <div className={styles.bgDeco1} aria-hidden="true" />
       <div className={styles.bgDeco2} aria-hidden="true" />
+      <div className={styles.bgGrid} aria-hidden="true" />
 
       <div className="container">
         <div className={styles.inner}>
-          <div className={styles.card}>
-            <h2 className={styles.cardTitle}>受付フォーム</h2>
-            <p className={styles.cardDesc}>
-              会社サイトURLと地域条件、業種、使い道から候補制度を絞り込みます。補足事項以外は必須です。
+          <div className={styles.heading}>
+            <span className={styles.headingEyebrow}>無料・24時間以内に回答</span>
+            <h2 className={styles.headingTitle}>
+              まず、会社情報を教えてください。
+              <br />
+              <span className={styles.headingAccent}>24時間以内に候補をお届けします。</span>
+            </h2>
+            <p className={styles.headingDesc}>
+              会社サイトURLと地域・業種・使い道を入力するだけ。担当者が確認した上で、あなたの会社に合った補助金・助成金の候補をメールでご案内します。
             </p>
           </div>
 
-          <form key={formKey} action={formAction} className={styles.formCard}>
-            <div className={styles.formGrid}>
-              <label className={`${styles.field} ${styles.fieldFull}`}>
-                <RequiredLabel>会社URL</RequiredLabel>
-                <input
-                  className={styles.input}
-                  name="companyUrl"
-                  type="url"
-                  placeholder="https://example.co.jp"
-                  required
-                />
-                {state.fieldErrors?.companyUrl ? (
-                  <span className={styles.fieldError}>{state.fieldErrors.companyUrl}</span>
-                ) : null}
-              </label>
-
-              <label className={styles.field}>
-                <RequiredLabel>メールアドレス</RequiredLabel>
-                <input
-                  className={styles.input}
-                  name="email"
-                  type="email"
-                  placeholder="info@example.co.jp"
-                  required
-                />
-                {state.fieldErrors?.email ? (
-                  <span className={styles.fieldError}>{state.fieldErrors.email}</span>
-                ) : null}
-              </label>
-
-              <label className={styles.field}>
-                <RequiredLabel>都道府県</RequiredLabel>
-                <select
-                  className={styles.input}
-                  name="prefecture"
-                  value={prefecture}
-                  onChange={(event) => setPrefecture(event.target.value)}
-                  required
+          {/* Stepper */}
+          <div className={styles.stepper} aria-label="申し込みステップ">
+            {STEPS.map((step, idx) => (
+              <div key={step.num} className={styles.stepperItem}>
+                <div
+                  className={`${styles.stepperDot} ${currentStep === step.num ? styles.stepperDotActive : ""} ${currentStep > step.num ? styles.stepperDotDone : ""}`}
                 >
-                  <option value="" disabled>
-                    選択してください
-                  </option>
-                  {prefectures.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-                {state.fieldErrors?.prefecture ? (
-                  <span className={styles.fieldError}>{state.fieldErrors.prefecture}</span>
+                  {currentStep > step.num ? (
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                      <path d="M2.5 7L5.5 10L11.5 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ) : (
+                    step.num
+                  )}
+                </div>
+                <span className={`${styles.stepperLabel} ${currentStep === step.num ? styles.stepperLabelActive : ""}`}>
+                  {step.label}
+                </span>
+                {idx < STEPS.length - 1 && (
+                  <div className={`${styles.stepperLine} ${currentStep > step.num ? styles.stepperLineDone : ""}`} aria-hidden="true" />
+                )}
+              </div>
+            ))}
+          </div>
+
+          <form key={formKey} action={formAction} className={styles.formCard}>
+
+            {/* Step 1: 会社基本情報 */}
+            {currentStep === 1 && (
+              <div className={styles.stepPanel}>
+                <p className={styles.stepHint}>会社のURLとご連絡先、所在地を教えてください。</p>
+                <div className={styles.formGrid}>
+                  <label className={`${styles.field} ${styles.fieldFull}`}>
+                    <RequiredLabel>会社URL</RequiredLabel>
+                    <input
+                      className={styles.input}
+                      name="companyUrl"
+                      type="url"
+                      placeholder="https://example.co.jp"
+                      value={companyUrl}
+                      onChange={(e) => setCompanyUrl(e.target.value)}
+                      required
+                    />
+                    {state.fieldErrors?.companyUrl ? (
+                      <span className={styles.fieldError}>{state.fieldErrors.companyUrl}</span>
+                    ) : null}
+                  </label>
+
+                  <label className={`${styles.field} ${styles.fieldFull}`}>
+                    <RequiredLabel>メールアドレス</RequiredLabel>
+                    <input
+                      className={styles.input}
+                      name="email"
+                      type="email"
+                      placeholder="info@example.co.jp"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                    {state.fieldErrors?.email ? (
+                      <span className={styles.fieldError}>{state.fieldErrors.email}</span>
+                    ) : null}
+                  </label>
+
+                  <label className={styles.field}>
+                    <RequiredLabel>都道府県</RequiredLabel>
+                    <div className={styles.selectWrapper}>
+                      <select
+                        className={styles.input}
+                        name="prefecture"
+                        value={prefecture}
+                        onChange={(event) => setPrefecture(event.target.value)}
+                        required
+                      >
+                        <option value="" disabled>選択してください</option>
+                        {prefectures.map((item) => (
+                          <option key={item} value={item}>{item}</option>
+                        ))}
+                      </select>
+                      <span className={styles.selectIcon} aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                    </div>
+                    {state.fieldErrors?.prefecture ? (
+                      <span className={styles.fieldError}>{state.fieldErrors.prefecture}</span>
+                    ) : null}
+                  </label>
+
+                  <label className={styles.field}>
+                    <RequiredLabel>市区町村</RequiredLabel>
+                    <input
+                      className={styles.input}
+                      name="city"
+                      type="text"
+                      placeholder={prefecture ? `${prefecture}内の市区町村` : "市区町村を入力"}
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      required
+                    />
+                    {state.fieldErrors?.city ? (
+                      <span className={styles.fieldError}>{state.fieldErrors.city}</span>
+                    ) : null}
+                  </label>
+                </div>
+
+                <button
+                  type="button"
+                  className={styles.nextBtn}
+                  onClick={() => setCurrentStep(2)}
+                  disabled={!canProceedStep1}
+                >
+                  次へ：業種・使い道を入力
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                    <path d="M4 9H14M10 5L14 9L10 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {/* Step 2: 業種・使い道 */}
+            {currentStep === 2 && (
+              <div className={styles.stepPanel}>
+                <p className={styles.stepHint}>どんな業種で、何に使いたいかを教えてください。</p>
+                <div className={styles.formGrid}>
+                  <label className={styles.field}>
+                    <RequiredLabel>業種</RequiredLabel>
+                    <div className={styles.selectWrapper}>
+                      <select
+                        className={styles.input}
+                        name="industry"
+                        value={industry}
+                        onChange={(e) => setIndustry(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>選択してください</option>
+                        {industries.map((item) => (
+                          <option key={item} value={item}>{item}</option>
+                        ))}
+                      </select>
+                      <span className={styles.selectIcon} aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                    </div>
+                    {state.fieldErrors?.industry ? (
+                      <span className={styles.fieldError}>{state.fieldErrors.industry}</span>
+                    ) : null}
+                  </label>
+
+                  <label className={styles.field}>
+                    <RequiredLabel>使い道</RequiredLabel>
+                    <div className={styles.selectWrapper}>
+                      <select
+                        className={styles.input}
+                        name="useCase"
+                        value={useCase}
+                        onChange={(e) => setUseCase(e.target.value)}
+                        required
+                      >
+                        <option value="" disabled>選択してください</option>
+                        {useCases.map((item) => (
+                          <option key={item} value={item}>{item}</option>
+                        ))}
+                      </select>
+                      <span className={styles.selectIcon} aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M4 6L8 10L12 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </span>
+                    </div>
+                    {state.fieldErrors?.useCase ? (
+                      <span className={styles.fieldError}>{state.fieldErrors.useCase}</span>
+                    ) : null}
+                  </label>
+                </div>
+
+                <div className={styles.stepNav}>
+                  <button type="button" className={styles.backBtn} onClick={() => setCurrentStep(1)}>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                      <path d="M14 9H4M8 5L4 9L8 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    戻る
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.nextBtn}
+                    onClick={() => setCurrentStep(3)}
+                    disabled={!canProceedStep2}
+                  >
+                    次へ：確認・送信
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                      <path d="M4 9H14M10 5L14 9L10 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: 補足・確認・送信 */}
+            {currentStep === 3 && (
+              <div className={styles.stepPanel}>
+                <p className={styles.stepHint}>補足があれば記入して送信してください（任意）。</p>
+
+                {/* Hidden fields to carry over step 1 & 2 values */}
+                <input type="hidden" name="companyUrl" value={companyUrl} />
+                <input type="hidden" name="email" value={email} />
+                <input type="hidden" name="prefecture" value={prefecture} />
+                <input type="hidden" name="city" value={city} />
+                <input type="hidden" name="industry" value={industry} />
+                <input type="hidden" name="useCase" value={useCase} />
+
+                {/* Summary card */}
+                <div className={styles.summaryCard}>
+                  <dl className={styles.summaryList}>
+                    <div className={styles.summaryRow}>
+                      <dt>会社URL</dt>
+                      <dd>{companyUrl}</dd>
+                    </div>
+                    <div className={styles.summaryRow}>
+                      <dt>メール</dt>
+                      <dd>{email}</dd>
+                    </div>
+                    <div className={styles.summaryRow}>
+                      <dt>所在地</dt>
+                      <dd>{prefecture} {city}</dd>
+                    </div>
+                    <div className={styles.summaryRow}>
+                      <dt>業種</dt>
+                      <dd>{industry}</dd>
+                    </div>
+                    <div className={styles.summaryRow}>
+                      <dt>使い道</dt>
+                      <dd>{useCase}</dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div className={styles.formGrid}>
+                  <label className={`${styles.field} ${styles.fieldFull}`}>
+                    <RequiredLabel optional>補足事項（任意）</RequiredLabel>
+                    <textarea
+                      className={`${styles.input} ${styles.textarea}`}
+                      name="notes"
+                      placeholder="気になる制度名、特記事項など、何でも記入できます"
+                    />
+                  </label>
+                </div>
+
+                <div className={styles.stepNav}>
+                  <button type="button" className={styles.backBtn} onClick={() => setCurrentStep(2)}>
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                      <path d="M14 9H4M8 5L4 9L8 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    戻る
+                  </button>
+                  <SubmitButton />
+                </div>
+
+                {state.status === "error" ? (
+                  <p className={styles.feedbackError} aria-live="polite">
+                    {state.message ?? ""}
+                  </p>
                 ) : null}
-              </label>
 
-              <label className={styles.field}>
-                <RequiredLabel>市区町村</RequiredLabel>
-                <input
-                  className={styles.input}
-                  name="city"
-                  type="text"
-                  placeholder={prefecture ? `${prefecture}内の市区町村を入力` : "市区町村を入力"}
-                  required
-                />
-                {state.fieldErrors?.city ? (
-                  <span className={styles.fieldError}>{state.fieldErrors.city}</span>
-                ) : null}
-              </label>
-
-              <label className={styles.field}>
-                <RequiredLabel>業種</RequiredLabel>
-                <select className={styles.input} name="industry" defaultValue="" required>
-                  <option value="" disabled>
-                    選択してください
-                  </option>
-                  {industries.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-                {state.fieldErrors?.industry ? (
-                  <span className={styles.fieldError}>{state.fieldErrors.industry}</span>
-                ) : null}
-              </label>
-
-              <label className={styles.field}>
-                <RequiredLabel>使い道</RequiredLabel>
-                <select className={styles.input} name="useCase" defaultValue="" required>
-                  <option value="" disabled>
-                    選択してください
-                  </option>
-                  {useCases.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-                {state.fieldErrors?.useCase ? (
-                  <span className={styles.fieldError}>{state.fieldErrors.useCase}</span>
-                ) : null}
-              </label>
-
-              <label className={`${styles.field} ${styles.fieldFull}`}>
-                <RequiredLabel optional>補足事項</RequiredLabel>
-                <textarea
-                  className={`${styles.input} ${styles.textarea}`}
-                  name="notes"
-                  placeholder="任意で補足があれば入力してください"
-                />
-              </label>
-            </div>
-
-            <SubmitButton />
-            {state.status === "error" ? (
-              <p className={styles.feedbackError} aria-live="polite">
-                {state.message ?? ""}
-              </p>
-            ) : null}
+                <p className={styles.privacyNote}>
+                  送信することで
+                  <a href="/privacy" className={styles.privacyLink}>プライバシーポリシー</a>
+                  に同意したものとみなします。
+                </p>
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -273,15 +473,21 @@ export default function CtaSection() {
             aria-labelledby="contact-success-title"
             onClick={(event) => event.stopPropagation()}
           >
+            <div className={styles.modalIcon} aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="16" fill="#16a34a" opacity="0.12"/>
+                <path d="M9 16.5L13.5 21L23 11" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
             <h3 id="contact-success-title" className={styles.modalTitle}>
-              送信を受け付けました
+              受け付けました
             </h3>
             <p className={styles.modalText}>
-              内容を確認のうえ、24時間以内にメールでご連絡します。
+              担当者が内容を確認した上で、<strong>24時間以内</strong>にメールでご連絡します。
             </p>
             <button
               type="button"
-              className={`btn btn--primary ${styles.modalButton}`}
+              className={styles.modalButton}
               onClick={() => setShowSuccessModal(false)}
             >
               閉じる

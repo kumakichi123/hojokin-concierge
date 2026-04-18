@@ -61,9 +61,9 @@ export default function FeatureSection() {
       <div className="container">
         <div className={styles.header}>
           <h2 className={styles.heading}>
-            探さない会社ほど、
+            気づいた会社だけが、
             <br />
-            取りこぼしやすい。
+            受け取っている。
           </h2>
         </div>
 
@@ -89,6 +89,12 @@ export default function FeatureSection() {
             <div className={styles.pointRow}>
               {active.points.map((point) => (
                 <div key={point} className={styles.pointCard}>
+                  <span className={styles.pointIcon} aria-hidden="true">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <circle cx="8" cy="8" r="7.5" fill="#fee2e2" stroke="#fca5a5"/>
+                      <path d="M5.5 5.5L10.5 10.5M10.5 5.5L5.5 10.5" stroke="#dc2626" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </span>
                   {point}
                 </div>
               ))}
