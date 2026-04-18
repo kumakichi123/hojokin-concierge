@@ -146,6 +146,16 @@ button {
   background: var(--color-bg-light);
 }
 
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3vw, 3rem);
+}
+
+.landing-page > * {
+  flex-shrink: 0;
+}
+
 /* ===========================
    Typography
    =========================== */
@@ -326,6 +336,10 @@ button {
 
   .section {
     padding: var(--space-xl) 0;
+  }
+
+  .landing-page {
+    gap: clamp(1.25rem, 5vw, 2rem);
   }
 
   .section-title {

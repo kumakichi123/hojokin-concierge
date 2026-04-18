@@ -35,6 +35,43 @@ If you deploy on Vercel, the project directory is not durable at runtime. Use a 
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Git Deploy Flow
+
+This project is deployed by pushing Git commits to GitHub. The current remote is:
+
+```bash
+git remote -v
+origin  https://github.com/kumakichi123/hojokin-concierge.git (fetch)
+origin  https://github.com/kumakichi123/hojokin-concierge.git (push)
+```
+
+The deploy target branch is `master`. Push to `origin/master` and the Vercel-linked deployment will run automatically.
+
+Recommended flow:
+
+```bash
+git -C C:\Users\asabe\funding-agent\karte-web-next status --short --branch
+npm run build
+git add .
+git commit -m "your message"
+git push origin master
+```
+
+Notes:
+
+- Run `npm run build` before pushing so broken chunks or runtime regressions are caught locally first.
+- On this project, local verification is more stable with `next build` + `next start` than `next dev`.
+- Do not commit temporary files such as `.start-3000.log`, `.start-3000.err.log`, or ad hoc debug HTML files.
+- If chunk files start returning 500 or 404 locally, remove `.next`, rebuild, and restart the server before pushing.
+
+Chunk mismatch recovery:
+
+```bash
+Remove-Item -LiteralPath .next -Recurse -Force
+npm run build
+npm run start -- --hostname 127.0.0.1 --port 3000
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -43,9 +80,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

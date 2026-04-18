@@ -31,6 +31,8 @@ yarn-error.log*
 .pnpm-debug.log*
 .dev-*.log
 .dev-*.err.log
+.start-*.log
+.start-*.err.log
 .codex-run/
 
 # env files (can opt-in for committing if needed)

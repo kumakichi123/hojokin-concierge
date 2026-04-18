@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main>
+      <main className="landing-page">
         <Hero />
         <Reveal delayMs={40} variant="up">
           <ProblemSection />

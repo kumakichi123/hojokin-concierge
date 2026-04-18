@@ -17,6 +17,7 @@ export default function Reveal({
   variant = "up",
 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const [isPrepared, setIsPrepared] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -25,6 +26,18 @@ export default function Reveal({
     if (!node) {
       return;
     }
+
+    const rect = node.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const isInInitialViewport = rect.top < viewportHeight * 0.92 && rect.bottom > 0;
+
+    if (isInInitialViewport) {
+      setIsPrepared(true);
+      setIsVisible(true);
+      return;
+    }
+
+    setIsPrepared(true);
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -55,7 +68,9 @@ export default function Reveal({
 
   const innerClasses = [
     styles.revealInner,
-    variantClassMap[variant],
+    isPrepared ? styles.prepared : "",
+    isPrepared ? variantClassMap[variant] : "",
+    isPrepared && !isVisible ? styles.hidden : "",
     isVisible ? styles.visible : "",
   ]
     .filter(Boolean)
